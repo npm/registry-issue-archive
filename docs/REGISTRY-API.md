@@ -18,7 +18,6 @@
   - [Package Endpoints](#package-endpoints)
     - [`GET·/{package}`](#getpackage)
     - [`GET·/{package}/{version}`](#getpackageversion)
-    - [`GET·/{package}/-/{package}-{version}.tgz`](#getpackagepackageversion)
 
 ## Objects
 
@@ -188,17 +187,4 @@ Gets a specific package version.
 
 ##### Response
 * `200` - [Package](#package) with embedded [Version](#version).
-* `404` - Package with specified id or version not found.
-
-#### `GET·/{package}/-/{package}-{version}.tgz`
-
-Gets a specific package version binary.
-
-| Name     | Value     | Kind     | Required?     | Notes     |
-|------    |-------    |------    |-----------    |-------    |
-| package | String | **Path** | ✅         | the name of the package (can contain a scope, e.g. `@scope/id` - note that scope is not included in the filename part of the URL) |
-| version | String | **Path** | ✅         | a version number        |
-
-##### Response
-* `200` - Package binary.
 * `404` - Package with specified id or version not found.
