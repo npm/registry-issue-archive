@@ -12,7 +12,9 @@
   - [Meta Endpoints](#meta-endpoints)
     - [`GET·/`](#get)
     - [`GET·/-/all`](#getall)
-    - [`GET·/-/`]
+    - [`GET·/-/all/since`](#getallsince)
+  - [User Endpoints](#user-endpoints)
+    - [`PUT·/-/user`](#put)
   - [Package Endpoints](#package-endpoints)
     - [`GET·/{package}`](#getpackage)
     - [`GET·/{package}/{version}`](#getpackageversion)
@@ -99,21 +101,90 @@
 
 #### `GET·/-/all`
 
+Gets all packages in the registry.
+
 | Name     | Value     | Kind     | Required?     | Notes     |
 |------    |-------    |------    |-----------    |-------    |
+
+##### Response
+
+* `200` - [Package](#package) with embedded [Versions](#version)
+
+#### `GET·/-/all/since?startKey={startKey}`
+
+Gets all packages in the registry since `startKey`.
+
+| Name     | Value     | Kind     | Required?     | Notes     |
+|------    |-------    |------    |-----------    |-------    |
+| startKey | Unix timestamp | **Query** | ❌         | the timestamp from which to start listing packages |
+
+##### Response
+
+* `200` - [Package](#package) with embedded [Versions](#version), added to the registry since the timestamp specified through the `startKey` query string.
+
+### User Endpoints
+
+#### `PUT·/-/user`
+
+Creates a user and validates a login against the registry.
+
+| Name     | Value     | Kind     | Required?     | Notes     |
+|------    |-------    |------    |-----------    |-------    |
+
+##### Request payload
+
+```
+{
+  "name": "user-name",
+  "password": "some-password",
+  "email": "user@example.org"
+}
+```
+
+##### Response
+
+* `200` - User exists and can authenticate using the provided credentials
+* `201` - User created
+```
+{
+  "ok": "true"
+}
+```
+
+* `403` - User can not authenticate using the provided credentials (or does not exist)
+```
+{
+  "error": "Invalid login",
+  "reason": "The specified login is not valid"
+}
+```
 
 ### Package Endpoints
 
 #### `GET·/{package}`
 
+Gets versions of a specific package.
+
 | Name     | Value     | Kind     | Required?     | Notes     |
 |------    |-------    |------    |-----------    |-------    |
-| package | String | **Path**  | ✅         | the name of the package |
+| package | String | **Path**  | ✅         | the name of the package (can contain a scope, e.g. `@scope/id`) |
 | version | String | **Query** | ❌         | a version number        |
+| write   | Boolean | **Query** | ❌         | used when the npm client determines if a package can be updated by the given user (user passed via `Authorize`header) |
+
+##### Response
+* `200` - [Package](#package) with embedded [Versions](#version).
+* `404` - Package not found.
+* `403` - Package can not be updated by the current user (when `write` query string is `true` and `Authorization` header passed)
 
 #### `GET·/{package}/{version}`
 
+Gets a specific package version.
+
 | Name     | Value     | Kind     | Required?     | Notes     |
 |------    |-------    |------    |-----------    |-------    |
-| package | String | **Path** | ✅         | the name of the package |
+| package | String | **Path** | ✅         | the name of the package (can contain a scope, e.g. `@scope/id`) |
 | version | String | **Path** | ✅         | a version number        |
+
+##### Response
+* `200` - [Package](#package) with embedded [Version](#version).
+* `404` - Package with specified id or version not found.
