@@ -131,7 +131,7 @@
 | maintenance | float | **Query** | ❌         | how much of an effect should maintenance have on search results |
 
 _Note: the values of `quality`, `popularity`, and `maintenance` are normalized, e.g., to return
- results based solely on `quality`, set `quality=1.0`, `maintenance=0.0`, `popularity=0.0`.
+ results based solely on `quality`, set `quality=1.0`, `maintenance=0.0`, `popularity=0.0`._
 
 **response format:**
 
