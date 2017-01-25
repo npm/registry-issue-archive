@@ -130,7 +130,7 @@
 | popularity | float | **Query** | ❌         | how much of an effect should popularity have on search results |
 | maintenance | float | **Query** | ❌         | how much of an effect should maintenance have on search results |
 
-_Note: the values of `quality`, `popularity`, and `maintenance` are normalized, e.g., to return
+_Note: the values of `quality`, `popularity`, and `maintenance` are normalized into a unit-vector provide values between `0 - 1` for each to modify weightings, e.g., to return
  results based solely on `quality`, set `quality=1.0`, `maintenance=0.0`, `popularity=0.0`._
 
 **response format:**
