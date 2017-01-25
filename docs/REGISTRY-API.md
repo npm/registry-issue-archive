@@ -16,7 +16,7 @@
   - [Package Endpoints](#package-endpoints)
     - [`GET·/{package}`](#getpackage)
     - [`GET·/{package}/{version}`](#getpackageversion)
-    - [`GET·/-/v1/search`](#getv1search)
+    - [`GET·/-/v1/search`](#get-v1search)
 
 ## Objects
 
@@ -135,7 +135,7 @@ _Note: the values of `quality`, `popularity`, and `maintenance` are normalized, 
 
 **response format:**
 
-```
+```json
 {
   "objects": [
     {
