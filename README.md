@@ -1,3 +1,6 @@
+[![Linux Build][travis-image]][travis-url]
+
+[![NPM Version][npm-image]][npm-url]
 # :package: :ledger: the npm registry public tracker
 
 This is a public issue tracker for the npm registry. It will be used
