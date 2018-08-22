@@ -1,4 +1,4 @@
-# :package: :ledger: the archive of the old anpm registry public tracker
+# :package: :ledger: the archive of the old npm registry public tracker
 
 This is an arrchive of the old issue tracker for the npm registry and
 only exists for historical purposes.
